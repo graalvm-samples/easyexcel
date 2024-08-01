@@ -20,6 +20,8 @@ import com.alibaba.excel.util.ClassUtils;
 import com.alibaba.excel.util.ConverterUtils;
 import com.alibaba.excel.util.DateUtils;
 import com.alibaba.excel.util.MapUtils;
+import com.alibaba.fastjson2.JSONObject;
+import com.fushun.framework.json.utils.fastjson.JSONProxy;
 
 
 /**
@@ -133,7 +135,8 @@ public class ModelBuildEventListener implements IgnoreExceptionReadListener<Map<
                 "Can not instance class: " + excelReadHeadProperty.getHeadClazz().getName(), e);
         }
         Map<Integer, Head> headMap = excelReadHeadProperty.getHeadMap();
-        BeanMap dataMap = BeanMapUtils.create(resultModel);
+        JSONObject dataMap= (JSONObject) JSONProxy.toJSON(resultModel);
+//        BeanMap dataMap = BeanMapUtils.create(resultModel);
         for (Map.Entry<Integer, Head> entry : headMap.entrySet()) {
             Integer index = entry.getKey();
             Head head = entry.getValue();

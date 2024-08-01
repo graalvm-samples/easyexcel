@@ -10,6 +10,7 @@ import com.alibaba.excel.read.listener.ReadListener;
 import com.alibaba.excel.write.builder.ExcelWriterBuilder;
 import com.alibaba.excel.write.builder.ExcelWriterSheetBuilder;
 import com.alibaba.excel.write.builder.ExcelWriterTableBuilder;
+import com.fushun.framework.json.config.JsonGraalVMNativeBean;
 
 /**
  * Reader and writer factory class
@@ -44,7 +45,7 @@ public class EasyExcelFactory {
      * @param head Annotate the class for configuration information
      * @return Excel writer builder
      */
-    public static ExcelWriterBuilder write(File file, Class head) {
+    public static ExcelWriterBuilder write(File file, Class<? extends JsonGraalVMNativeBean> head) {
         ExcelWriterBuilder excelWriterBuilder = new ExcelWriterBuilder();
         excelWriterBuilder.file(file);
         if (head != null) {
@@ -70,7 +71,7 @@ public class EasyExcelFactory {
      * @param head     Annotate the class for configuration information
      * @return Excel writer builder
      */
-    public static ExcelWriterBuilder write(String pathName, Class head) {
+    public static ExcelWriterBuilder write(String pathName, Class<? extends  JsonGraalVMNativeBean> head) {
         ExcelWriterBuilder excelWriterBuilder = new ExcelWriterBuilder();
         excelWriterBuilder.file(pathName);
         if (head != null) {
@@ -96,7 +97,7 @@ public class EasyExcelFactory {
      * @param head         Annotate the class for configuration information.
      * @return Excel writer builder
      */
-    public static ExcelWriterBuilder write(OutputStream outputStream, Class head) {
+    public static ExcelWriterBuilder write(OutputStream outputStream, Class<? extends JsonGraalVMNativeBean> head) {
         ExcelWriterBuilder excelWriterBuilder = new ExcelWriterBuilder();
         excelWriterBuilder.file(outputStream);
         if (head != null) {
@@ -213,7 +214,7 @@ public class EasyExcelFactory {
      * @param readListener Read listener.
      * @return Excel reader builder.
      */
-    public static ExcelReaderBuilder read(File file, Class head, ReadListener readListener) {
+    public static ExcelReaderBuilder read(File file, Class<? extends JsonGraalVMNativeBean> head, ReadListener readListener) {
         ExcelReaderBuilder excelReaderBuilder = new ExcelReaderBuilder();
         excelReaderBuilder.file(file);
         if (head != null) {
@@ -254,7 +255,7 @@ public class EasyExcelFactory {
      * @param readListener Read listener.
      * @return Excel reader builder.
      */
-    public static ExcelReaderBuilder read(String pathName, Class head, ReadListener readListener) {
+    public static ExcelReaderBuilder read(String pathName, Class<? extends JsonGraalVMNativeBean> head, ReadListener readListener) {
         ExcelReaderBuilder excelReaderBuilder = new ExcelReaderBuilder();
         excelReaderBuilder.file(pathName);
         if (head != null) {
@@ -295,7 +296,7 @@ public class EasyExcelFactory {
      * @param readListener Read listener.
      * @return Excel reader builder.
      */
-    public static ExcelReaderBuilder read(InputStream inputStream, Class head, ReadListener readListener) {
+    public static ExcelReaderBuilder read(InputStream inputStream, Class<? extends JsonGraalVMNativeBean> head, ReadListener readListener) {
         ExcelReaderBuilder excelReaderBuilder = new ExcelReaderBuilder();
         excelReaderBuilder.file(inputStream);
         if (head != null) {

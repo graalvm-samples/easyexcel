@@ -29,9 +29,12 @@ import com.alibaba.excel.write.handler.context.CellWriteHandlerContext;
 import com.alibaba.excel.write.handler.context.RowWriteHandlerContext;
 import com.alibaba.excel.write.metadata.fill.AnalysisCell;
 import com.alibaba.excel.write.metadata.fill.FillConfig;
+import com.alibaba.excel.write.metadata.fill.FillMapWrapper;
 import com.alibaba.excel.write.metadata.fill.FillWrapper;
 import com.alibaba.excel.write.metadata.holder.WriteSheetHolder;
 
+import com.alibaba.fastjson2.JSONObject;
+import com.fushun.framework.json.utils.fastjson.JSONProxy;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -106,6 +109,10 @@ public class ExcelWriteFillExecutor extends AbstractExcelWriteExecutor {
 
         if (data instanceof FillWrapper) {
             FillWrapper fillWrapper = (FillWrapper)data;
+            currentDataPrefix = fillWrapper.getName();
+            realData = fillWrapper.getCollectionData();
+        }else if (data instanceof FillMapWrapper) {
+            FillMapWrapper fillWrapper = (FillMapWrapper)data;
             currentDataPrefix = fillWrapper.getName();
             realData = fillWrapper.getCollectionData();
         } else {
@@ -198,7 +205,8 @@ public class ExcelWriteFillExecutor extends AbstractExcelWriteExecutor {
         if (oneRowData instanceof Map) {
             dataMap = (Map)oneRowData;
         } else {
-            dataMap = BeanMapUtils.create(oneRowData);
+            dataMap= (JSONObject) JSONProxy.toJSON(oneRowData);
+//            dataMap = BeanMapUtils.create(oneRowData);
         }
         Set<String> dataKeySet = new HashSet<>(dataMap.keySet());
 

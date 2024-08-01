@@ -26,9 +26,13 @@ import com.alibaba.excel.write.metadata.RowData;
 import com.alibaba.excel.write.metadata.holder.WriteHolder;
 import com.alibaba.excel.write.metadata.holder.WriteSheetHolder;
 
+import com.alibaba.fastjson2.JSONObject;
+import com.fushun.framework.json.utils.fastjson.JSONProxy;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Add the data into excel
@@ -36,6 +40,8 @@ import org.apache.poi.ss.usermodel.Row;
  * @author Jiaju Zhuang
  */
 public class ExcelWriteAddExecutor extends AbstractExcelWriteExecutor {
+
+    private Logger logger= LoggerFactory.getLogger(this.getClass());
 
     public ExcelWriteAddExecutor(WriteContext writeContext) {
         super(writeContext);
@@ -137,7 +143,9 @@ public class ExcelWriteAddExecutor extends AbstractExcelWriteExecutor {
 
     private void addJavaObjectToExcel(Object oneRowData, Row row, int rowIndex, int relativeRowIndex) {
         WriteHolder currentWriteHolder = writeContext.currentWriteHolder();
-        BeanMap beanMap = BeanMapUtils.create(oneRowData);
+//        BeanMap beanMap = BeanMapUtils.create(oneRowData);
+        JSONObject beanMap= (JSONObject) JSONProxy.toJSON(oneRowData);
+        logger.info("beanMap:{}",beanMap.toJSONString());
         // Bean the contains of the Map Key method with poor performance,So to create a keySet here
         Set<String> beanKeySet = new HashSet<>(beanMap.keySet());
         Set<String> beanMapHandledSet = new HashSet<>();

@@ -1,3 +1,8 @@
+# 此项目是为了在graalvm的项目中，可以使用easyexcel项目，进行的修改
+- 1、主要增加了对需要转换的类不在使用了，cglib了，而是使用JSON.toJSON的方式来处理
+- 2、对方法中，如果使用自定义javabean来写入excel，则需要将这个类实现一个接口。graalvm在编译的时候使用实现的编译类，给类增加反射和序列化的支持
+- 3、此项目，必须依赖framework-parent项目。
+- 3.1、需要想使用官方标准的easyexcel版本，将framework-parent项目install到本地maven。然后再使用此项目将easyexcel项目install到本地maven
 
 
 EasyExcel

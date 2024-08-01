@@ -1,4 +1,13 @@
-EasyExcel
+# This project is a modification so that easyexcel project can be used in graalvm project
+
+1. The main increase is that the class that needs to be transformed is no longer used, cglib is no longer used, but JSON.toJSON is used to process
+
+2. In the method, if you use a custom javabean to write to excel, you need to implement an interface for this class. graalvm uses the compiled class implementation at compile time, adding reflection and serialization support to the class
+
+3. This project must depend on the framework-parent project.
+
+- 3.1 install the framework-parent project to your local maven using the easyexcel version of the official standard. Then use this project to install the easyexcel project to your local maven
+
 ======================
 [![Build Status](https://github.com/alibaba/easyexcel/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/alibaba/easyexcel/actions/workflows/ci.yml?query=branch%3Amaster)
 [![Maven central](https://maven-badges.herokuapp.com/maven-central/com.alibaba/easyexcel/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.alibaba/easyexcel)

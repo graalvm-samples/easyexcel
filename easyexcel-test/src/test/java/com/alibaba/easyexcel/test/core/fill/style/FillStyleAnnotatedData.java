@@ -7,6 +7,7 @@ import com.alibaba.excel.annotation.write.style.ContentStyle;
 import com.alibaba.excel.enums.BooleanEnum;
 import com.alibaba.excel.enums.poi.FillPatternTypeEnum;
 
+import com.fushun.framework.json.config.JsonGraalVMNativeBean;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,7 +18,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @EqualsAndHashCode
-public class FillStyleAnnotatedData {
+public class FillStyleAnnotatedData implements JsonGraalVMNativeBean {
     @ContentStyle(fillPatternType = FillPatternTypeEnum.SOLID_FOREGROUND, fillForegroundColor = 13)
     @ContentFontStyle(bold = BooleanEnum.TRUE, color = 19)
     private String name;

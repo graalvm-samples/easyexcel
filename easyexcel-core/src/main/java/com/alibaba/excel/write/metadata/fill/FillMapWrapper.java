@@ -10,7 +10,7 @@ import java.util.Map;
  *
  * @author Jiaju Zhuang
  **/
-public class FillWrapper {
+public class FillMapWrapper {
     /**
      * The collection prefix that needs to be filled.
      */
@@ -18,13 +18,13 @@ public class FillWrapper {
     /**
      * Data that needs to be filled.
      */
-    private Collection<? extends JsonGraalVMNativeBean> collectionData;
+    private Collection<? extends Map> collectionData;
 
-    public FillWrapper(Collection<? extends JsonGraalVMNativeBean> collectionData) {
+    public FillMapWrapper(Collection<? extends Map> collectionData) {
         this.collectionData = collectionData;
     }
 
-    public FillWrapper(String name, Collection<? extends JsonGraalVMNativeBean> collectionData) {
+    public FillMapWrapper(String name, Collection<? extends Map> collectionData) {
         this.name = name;
         this.collectionData = collectionData;
     }
@@ -37,11 +37,11 @@ public class FillWrapper {
         this.name = name;
     }
 
-    public Collection<? extends JsonGraalVMNativeBean> getCollectionData() {
+    public Collection<? extends Map> getCollectionData() {
         return collectionData;
     }
 
-    public void setCollectionData(Collection<? extends JsonGraalVMNativeBean> collectionData) {
+    public void setCollectionData(Collection<? extends Map> collectionData) {
         this.collectionData = collectionData;
     }
 }

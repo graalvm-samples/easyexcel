@@ -9,6 +9,7 @@ import com.alibaba.excel.annotation.write.style.ContentLoopMerge;
 import com.alibaba.excel.annotation.write.style.ContentRowHeight;
 import com.alibaba.excel.converters.string.StringImageConverter;
 
+import com.fushun.framework.json.config.JsonGraalVMNativeBean;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,7 +21,7 @@ import lombok.Setter;
 @Setter
 @EqualsAndHashCode
 @ContentRowHeight(100)
-public class FillAnnotationData {
+public class FillAnnotationData implements JsonGraalVMNativeBean {
     @ExcelProperty("日期")
     @DateTimeFormat("yyyy年MM月dd日HH时mm分ss秒")
     private Date date;

@@ -4,6 +4,7 @@ import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.annotation.format.NumberFormat;
 import com.alibaba.excel.converters.doubleconverter.DoubleStringConverter;
 
+import com.fushun.framework.json.config.JsonGraalVMNativeBean;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,7 +15,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @EqualsAndHashCode
-public class FillData {
+public class FillData implements JsonGraalVMNativeBean {
     private String name;
     @NumberFormat("#")
     @ExcelProperty(converter = DoubleStringConverter.class)

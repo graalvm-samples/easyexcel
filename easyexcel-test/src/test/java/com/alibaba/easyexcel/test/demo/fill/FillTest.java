@@ -43,7 +43,7 @@ public class FillTest {
         FillData fillData = new FillData();
         fillData.setName("张三");
         fillData.setNumber(5.2);
-        EasyExcel.write(fileName).withTemplate(templateFileName).sheet().doFill(fillData);
+        EasyExcel.write(fileName).withTemplate(templateFileName).sheet().doFillJava(fillData);
 
         // 方案2 根据Map填充
         fileName = TestFileUtil.getPath() + "simpleFill" + System.currentTimeMillis() + ".xlsx";
@@ -51,7 +51,7 @@ public class FillTest {
         Map<String, Object> map = MapUtils.newHashMap();
         map.put("name", "张三");
         map.put("number", 5.2);
-        EasyExcel.write(fileName).withTemplate(templateFileName).sheet().doFill(map);
+        EasyExcel.write(fileName).withTemplate(templateFileName).sheet().doFillMap(map);
     }
 
     /**
@@ -107,7 +107,7 @@ public class FillTest {
             Map<String, Object> map = MapUtils.newHashMap();
             map.put("date", "2019年10月9日13:28:28");
             map.put("total", 1000);
-            excelWriter.fill(map, writeSheet);
+            excelWriter.fillMap(map, writeSheet);
         }
     }
 
@@ -138,7 +138,7 @@ public class FillTest {
             // 写入list之前的数据
             Map<String, Object> map = new HashMap<String, Object>();
             map.put("date", "2019年10月9日13:28:28");
-            excelWriter.fill(map, writeSheet);
+            excelWriter.fillMap(map, writeSheet);
 
             // list 后面还有个统计 想办法手动写入
             // 这里偷懒直接用list 也可以用对象
@@ -151,7 +151,7 @@ public class FillTest {
             // 第四列
             totalList.add("统计:1000");
             // 这里是write 别和fill 搞错了
-            excelWriter.write(totalListList, writeSheet);
+            excelWriter.writeCollection(totalListList, writeSheet);
             // 总体上写法比较复杂 但是也没有想到好的版本 异步的去写入excel 不支持行的删除和移动，也不支持备注这种的写入，所以也排除了可以
             // 新建一个 然后一点点复制过来的方案，最后导致list需要新增行的时候，后面的列的数据没法后移，后续会继续想想解决方案
         }
@@ -179,7 +179,7 @@ public class FillTest {
 
             Map<String, Object> map = new HashMap<>();
             map.put("date", "2019年10月9日13:28:28");
-            excelWriter.fill(map, writeSheet);
+            excelWriter.fillMap(map, writeSheet);
         }
     }
 
@@ -202,18 +202,18 @@ public class FillTest {
             WriteSheet writeSheet = EasyExcel.writerSheet().build();
             FillConfig fillConfig = FillConfig.builder().direction(WriteDirectionEnum.HORIZONTAL).build();
             // 如果有多个list 模板上必须有{前缀.} 这里的前缀就是 data1，然后多个list必须用 FillWrapper包裹
-            excelWriter.fill(new FillWrapper("data1", data()), fillConfig, writeSheet);
-            excelWriter.fill(new FillWrapper("data1", data()), fillConfig, writeSheet);
-            excelWriter.fill(new FillWrapper("data2", data()), writeSheet);
-            excelWriter.fill(new FillWrapper("data2", data()), writeSheet);
-            excelWriter.fill(new FillWrapper("data3", data()), writeSheet);
-            excelWriter.fill(new FillWrapper("data3", data()), writeSheet);
+            excelWriter.fillFillWrapper(new FillWrapper("data1", data()), fillConfig, writeSheet);
+            excelWriter.fillFillWrapper(new FillWrapper("data1", data()), fillConfig, writeSheet);
+            excelWriter.fillFillWrapper(new FillWrapper("data2", data()), writeSheet);
+            excelWriter.fillFillWrapper(new FillWrapper("data2", data()), writeSheet);
+            excelWriter.fillFillWrapper(new FillWrapper("data3", data()), writeSheet);
+            excelWriter.fillFillWrapper(new FillWrapper("data3", data()), writeSheet);
 
             Map<String, Object> map = new HashMap<String, Object>();
             //map.put("date", "2019年10月9日13:28:28");
             map.put("date", new Date());
 
-            excelWriter.fill(map, writeSheet);
+            excelWriter.fillMap(map, writeSheet);
         }
     }
 

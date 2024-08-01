@@ -7,6 +7,8 @@ import com.alibaba.excel.write.merge.OnceAbsoluteMergeStrategy;
 import com.alibaba.excel.write.metadata.WriteSheet;
 import com.alibaba.excel.write.metadata.WriteTable;
 import com.alibaba.excel.write.metadata.fill.FillConfig;
+import com.alibaba.excel.write.metadata.fill.FillMapWrapper;
+import com.alibaba.excel.write.metadata.fill.FillWrapper;
 
 /**
  * @author jipengfei
