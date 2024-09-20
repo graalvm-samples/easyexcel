@@ -5,6 +5,7 @@ import java.util.Date;
 import com.alibaba.excel.annotation.ExcelIgnore;
 import com.alibaba.excel.annotation.ExcelProperty;
 
+import com.fushun.framework.json.config.JsonGraalVMNativeBean;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,7 +18,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @EqualsAndHashCode
-public class DemoData {
+public class DemoData implements JsonGraalVMNativeBean {
     @ExcelProperty("字符串标题")
     private String string;
     @ExcelProperty("日期标题")

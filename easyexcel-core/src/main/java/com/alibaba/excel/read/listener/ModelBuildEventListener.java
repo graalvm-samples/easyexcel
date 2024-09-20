@@ -14,12 +14,8 @@ import com.alibaba.excel.metadata.data.DataFormatData;
 import com.alibaba.excel.metadata.data.ReadCellData;
 import com.alibaba.excel.read.metadata.holder.ReadSheetHolder;
 import com.alibaba.excel.read.metadata.property.ExcelReadHeadProperty;
-import com.alibaba.excel.support.cglib.beans.BeanMap;
-import com.alibaba.excel.util.BeanMapUtils;
-import com.alibaba.excel.util.ClassUtils;
-import com.alibaba.excel.util.ConverterUtils;
-import com.alibaba.excel.util.DateUtils;
-import com.alibaba.excel.util.MapUtils;
+//import com.alibaba.excel.support.cglib.beans.BeanMap;
+import com.alibaba.excel.util.*;
 import com.alibaba.fastjson2.JSONObject;
 import com.fushun.framework.json.utils.fastjson.JSONProxy;
 
@@ -135,7 +131,7 @@ public class ModelBuildEventListener implements IgnoreExceptionReadListener<Map<
                 "Can not instance class: " + excelReadHeadProperty.getHeadClazz().getName(), e);
         }
         Map<Integer, Head> headMap = excelReadHeadProperty.getHeadMap();
-        JSONObject dataMap= (JSONObject) JSONProxy.toJSON(resultModel);
+        BeanReflectionHelper dataMap= new BeanReflectionHelper(resultModel);
 //        BeanMap dataMap = BeanMapUtils.create(resultModel);
         for (Map.Entry<Integer, Head> entry : headMap.entrySet()) {
             Integer index = entry.getKey();
@@ -146,11 +142,11 @@ public class ModelBuildEventListener implements IgnoreExceptionReadListener<Map<
             }
             ReadCellData<?> cellData = cellDataMap.get(index);
             Object value = ConverterUtils.convertToJavaObject(cellData, head.getField(),
-                ClassUtils.declaredExcelContentProperty(dataMap, readSheetHolder.excelReadHeadProperty().getHeadClazz(),
+                ClassUtils.declaredExcelContentProperty(excelReadHeadProperty.getHeadClazz(), readSheetHolder.excelReadHeadProperty().getHeadClazz(),
                     fieldName, readSheetHolder), readSheetHolder.converterMap(), context,
                 context.readRowHolder().getRowIndex(), index);
             if (value != null) {
-                dataMap.put(fieldName, value);
+                dataMap.setPropertyValue(fieldName, value);
             }
         }
         return resultModel;

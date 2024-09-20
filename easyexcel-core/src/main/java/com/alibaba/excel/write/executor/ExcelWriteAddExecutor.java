@@ -12,12 +12,8 @@ import com.alibaba.excel.metadata.FieldCache;
 import com.alibaba.excel.metadata.FieldWrapper;
 import com.alibaba.excel.metadata.Head;
 import com.alibaba.excel.metadata.property.ExcelContentProperty;
-import com.alibaba.excel.support.cglib.beans.BeanMap;
-import com.alibaba.excel.util.BeanMapUtils;
-import com.alibaba.excel.util.ClassUtils;
-import com.alibaba.excel.util.FieldUtils;
-import com.alibaba.excel.util.WorkBookUtil;
-import com.alibaba.excel.util.WriteHandlerUtils;
+//import com.alibaba.excel.support.cglib.beans.BeanMap;
+import com.alibaba.excel.util.*;
 import com.alibaba.excel.write.handler.context.CellWriteHandlerContext;
 import com.alibaba.excel.write.handler.context.RowWriteHandlerContext;
 import com.alibaba.excel.write.metadata.CollectionRowData;
@@ -145,6 +141,7 @@ public class ExcelWriteAddExecutor extends AbstractExcelWriteExecutor {
         WriteHolder currentWriteHolder = writeContext.currentWriteHolder();
 //        BeanMap beanMap = BeanMapUtils.create(oneRowData);
         JSONObject beanMap= (JSONObject) JSONProxy.toJSON(oneRowData);
+        BeanReflectionHelper beanReflectionHelper=new BeanReflectionHelper(oneRowData);
         logger.info("beanMap:{}",beanMap.toJSONString());
         // Bean the contains of the Map Key method with poor performance,So to create a keySet here
         Set<String> beanKeySet = new HashSet<>(beanMap.keySet());
@@ -161,7 +158,7 @@ public class ExcelWriteAddExecutor extends AbstractExcelWriteExecutor {
                     continue;
                 }
 
-                ExcelContentProperty excelContentProperty = ClassUtils.declaredExcelContentProperty(beanMap,
+                ExcelContentProperty excelContentProperty = ClassUtils.declaredExcelContentProperty(oneRowData.getClass(),
                     currentWriteHolder.excelWriteHeadProperty().getHeadClazz(), name, currentWriteHolder);
                 CellWriteHandlerContext cellWriteHandlerContext = WriteHandlerUtils.createCellWriteHandlerContext(
                     writeContext, row, rowIndex, head, columnIndex, relativeRowIndex, Boolean.FALSE,
@@ -198,7 +195,7 @@ public class ExcelWriteAddExecutor extends AbstractExcelWriteExecutor {
                 continue;
             }
             Object value = beanMap.get(fieldName);
-            ExcelContentProperty excelContentProperty = ClassUtils.declaredExcelContentProperty(beanMap,
+            ExcelContentProperty excelContentProperty = ClassUtils.declaredExcelContentProperty(oneRowData.getClass(),
                 currentWriteHolder.excelWriteHeadProperty().getHeadClazz(), fieldName, currentWriteHolder);
             CellWriteHandlerContext cellWriteHandlerContext = WriteHandlerUtils.createCellWriteHandlerContext(
                 writeContext, row, rowIndex, null, maxCellIndex, relativeRowIndex, Boolean.FALSE, excelContentProperty);
@@ -212,7 +209,7 @@ public class ExcelWriteAddExecutor extends AbstractExcelWriteExecutor {
             WriteHandlerUtils.afterCellCreate(cellWriteHandlerContext);
 
             cellWriteHandlerContext.setOriginalValue(value);
-            cellWriteHandlerContext.setOriginalFieldClass(FieldUtils.getFieldClass(beanMap, fieldName, value));
+            cellWriteHandlerContext.setOriginalFieldClass(FieldUtils.getFieldClass(beanReflectionHelper, fieldName, value));
             converterAndSet(cellWriteHandlerContext);
 
             WriteHandlerUtils.afterCellDispose(cellWriteHandlerContext);

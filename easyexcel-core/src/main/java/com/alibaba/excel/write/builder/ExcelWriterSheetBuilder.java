@@ -11,7 +11,6 @@ import com.alibaba.excel.write.metadata.fill.FillConfig;
 import com.alibaba.excel.write.metadata.fill.FillMapWrapper;
 import com.alibaba.excel.write.metadata.fill.FillWrapper;
 import com.fushun.framework.json.config.JsonGraalVMNativeBean;
-import com.fushun.framework.json.config.JsonGraalVMNativeBean;
 
 /**
  * Build sheet
@@ -101,7 +100,7 @@ public class ExcelWriterSheetBuilder extends AbstractExcelWriterParameterBuilder
         doFillCollectionMap(data, null);
     }
 
-    public void doFillJava(JsonGraalVMNativeBean data) {
+    public void doFillJava (JsonGraalVMNativeBean data) {
         doFillJava(data, null);
     }
 
@@ -139,7 +138,7 @@ public class ExcelWriterSheetBuilder extends AbstractExcelWriterParameterBuilder
         excelWriter.fillCollectionMap(data, fillConfig, build());
         excelWriter.finish();
     }
-    public void doFillJava(JsonGraalVMNativeBean data, FillConfig fillConfig) {
+    public void doFillJava (JsonGraalVMNativeBean data, FillConfig fillConfig) {
         if (excelWriter == null) {
             throw new ExcelGenerateException("Must use 'EasyExcelFactory.write().sheet()' to call this method");
         }

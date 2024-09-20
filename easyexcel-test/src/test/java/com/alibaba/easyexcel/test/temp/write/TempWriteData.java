@@ -5,11 +5,12 @@ import com.alibaba.excel.annotation.write.style.ContentStyle;
 import com.alibaba.excel.annotation.write.style.HeadStyle;
 import com.alibaba.excel.enums.BooleanEnum;
 
+import com.fushun.framework.json.config.JsonGraalVMNativeBean;
 import lombok.Data;
 
 @Data
 //@Accessors(chain = true)
-public class TempWriteData {
+public class TempWriteData implements JsonGraalVMNativeBean {
     private String name1;
 
     @ExcelProperty("     换行\r\n \\ \r\n的名字")

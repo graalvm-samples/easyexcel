@@ -18,13 +18,7 @@ import com.alibaba.excel.enums.WriteTemplateAnalysisCellTypeEnum;
 import com.alibaba.excel.exception.ExcelGenerateException;
 import com.alibaba.excel.metadata.data.WriteCellData;
 import com.alibaba.excel.metadata.property.ExcelContentProperty;
-import com.alibaba.excel.util.BeanMapUtils;
-import com.alibaba.excel.util.ClassUtils;
-import com.alibaba.excel.util.FieldUtils;
-import com.alibaba.excel.util.ListUtils;
-import com.alibaba.excel.util.MapUtils;
-import com.alibaba.excel.util.StringUtils;
-import com.alibaba.excel.util.WriteHandlerUtils;
+import com.alibaba.excel.util.*;
 import com.alibaba.excel.write.handler.context.CellWriteHandlerContext;
 import com.alibaba.excel.write.handler.context.RowWriteHandlerContext;
 import com.alibaba.excel.write.metadata.fill.AnalysisCell;
@@ -40,8 +34,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.collections4.CollectionUtils;
-
-import com.alibaba.excel.util.PoiUtils;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -202,10 +194,13 @@ public class ExcelWriteFillExecutor extends AbstractExcelWriteExecutor {
             return;
         }
         Map dataMap;
+        Object beanReflectionHelper=null;
         if (oneRowData instanceof Map) {
             dataMap = (Map)oneRowData;
+            beanReflectionHelper=dataMap;
         } else {
             dataMap= (JSONObject) JSONProxy.toJSON(oneRowData);
+            beanReflectionHelper = new BeanReflectionHelper(oneRowData);
 //            dataMap = BeanMapUtils.create(oneRowData);
         }
         Set<String> dataKeySet = new HashSet<>(dataMap.keySet());
@@ -224,14 +219,14 @@ public class ExcelWriteFillExecutor extends AbstractExcelWriteExecutor {
                     continue;
                 }
                 Object value = dataMap.get(variable);
-                ExcelContentProperty excelContentProperty = ClassUtils.declaredExcelContentProperty(dataMap,
+                ExcelContentProperty excelContentProperty = ClassUtils.declaredExcelContentProperty(oneRowData.getClass(),
                     writeContext.currentWriteHolder().excelWriteHeadProperty().getHeadClazz(), variable,
                     writeContext.currentWriteHolder());
                 cellWriteHandlerContext.setExcelContentProperty(excelContentProperty);
 
                 createCell(analysisCell, fillConfig, cellWriteHandlerContext, rowWriteHandlerContext);
                 cellWriteHandlerContext.setOriginalValue(value);
-                cellWriteHandlerContext.setOriginalFieldClass(FieldUtils.getFieldClass(dataMap, variable, value));
+                cellWriteHandlerContext.setOriginalFieldClass(FieldUtils.getFieldClass(beanReflectionHelper, variable, value));
 
                 converterAndSet(cellWriteHandlerContext);
                 WriteCellData<?> cellData = cellWriteHandlerContext.getFirstCellData();
@@ -259,11 +254,11 @@ public class ExcelWriteFillExecutor extends AbstractExcelWriteExecutor {
                         continue;
                     }
                     Object value = dataMap.get(variable);
-                    ExcelContentProperty excelContentProperty = ClassUtils.declaredExcelContentProperty(dataMap,
+                    ExcelContentProperty excelContentProperty = ClassUtils.declaredExcelContentProperty(oneRowData.getClass(),
                         writeContext.currentWriteHolder().excelWriteHeadProperty().getHeadClazz(), variable,
                         writeContext.currentWriteHolder());
                     cellWriteHandlerContext.setOriginalValue(value);
-                    cellWriteHandlerContext.setOriginalFieldClass(FieldUtils.getFieldClass(dataMap, variable, value));
+                    cellWriteHandlerContext.setOriginalFieldClass(FieldUtils.getFieldClass(beanReflectionHelper, variable, value));
                     cellWriteHandlerContext.setExcelContentProperty(excelContentProperty);
                     cellWriteHandlerContext.setTargetCellDataType(CellDataTypeEnum.STRING);
 

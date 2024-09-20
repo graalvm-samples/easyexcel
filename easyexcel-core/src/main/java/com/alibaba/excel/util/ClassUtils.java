@@ -33,7 +33,7 @@ import com.alibaba.excel.metadata.property.ExcelContentProperty;
 import com.alibaba.excel.metadata.property.FontProperty;
 import com.alibaba.excel.metadata.property.NumberFormatProperty;
 import com.alibaba.excel.metadata.property.StyleProperty;
-import com.alibaba.excel.support.cglib.beans.BeanMap;
+//import com.alibaba.excel.support.cglib.beans.BeanMap;
 import com.alibaba.excel.write.metadata.holder.WriteHolder;
 
 import lombok.AllArgsConstructor;
@@ -97,21 +97,21 @@ public class ClassUtils {
     /**
      * Calculate the configuration information for the class
      *
-     * @param dataMap
+     * @param clazz
      * @param headClazz
      * @param fieldName
      * @return
      */
-    public static ExcelContentProperty declaredExcelContentProperty(Map<?, ?> dataMap, Class<?> headClazz,
+    public static ExcelContentProperty declaredExcelContentProperty(Class<?> clazz, Class<?> headClazz,
         String fieldName,
         ConfigurationHolder configurationHolder) {
-        Class<?> clazz = null;
-        if (dataMap instanceof BeanMap) {
-            Object bean = ((BeanMap)dataMap).getBean();
-            if (bean != null) {
-                clazz = bean.getClass();
-            }
-        }
+//        Class<?> clazz = null;
+//        if (dataMap instanceof BeanMap) {
+//            Object bean = ((BeanMap)dataMap).getBean();
+//            if (bean != null) {
+//                clazz = bean.getClass();
+//            }
+//        }
         return getExcelContentProperty(clazz, headClazz, fieldName, configurationHolder);
     }
 

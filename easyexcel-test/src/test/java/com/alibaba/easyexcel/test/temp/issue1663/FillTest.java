@@ -27,12 +27,12 @@ public class FillTest {
         ExcelWriter excelWriter = EasyExcel.write(fileName).withTemplate(templateFileName).build();
         WriteSheet writeSheet = EasyExcel.writerSheet().build();
         FillConfig fillConfig = FillConfig.builder().direction(WriteDirectionEnum.VERTICAL).build();
-        excelWriter.fill(new FillWrapper("data1", data()), fillConfig, writeSheet);
+        excelWriter.fillFillWrapper(new FillWrapper("data1", data()), fillConfig, writeSheet);
 
         Map<String, Object> map = new HashMap<String, Object>();
         // Variable {date} does not exist in the template.xlsx, which should be ignored instead of reporting an error.
         map.put("date", "2019年10月9日13:28:28");
-        excelWriter.fill(map, writeSheet);
+        excelWriter.fillMap(map, writeSheet);
         excelWriter.finish();
     }
 

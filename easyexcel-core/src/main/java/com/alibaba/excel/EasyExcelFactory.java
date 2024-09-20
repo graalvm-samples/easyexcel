@@ -71,7 +71,7 @@ public class EasyExcelFactory {
      * @param head     Annotate the class for configuration information
      * @return Excel writer builder
      */
-    public static ExcelWriterBuilder write(String pathName, Class<? extends  JsonGraalVMNativeBean> head) {
+    public static ExcelWriterBuilder write(String pathName, Class<? extends JsonGraalVMNativeBean> head) {
         ExcelWriterBuilder excelWriterBuilder = new ExcelWriterBuilder();
         excelWriterBuilder.file(pathName);
         if (head != null) {

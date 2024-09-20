@@ -3,9 +3,9 @@ package com.alibaba.easyexcel.test.temp;
 import java.util.List;
 
 import com.alibaba.excel.EasyExcel;
-import com.alibaba.excel.support.cglib.beans.BeanMap;
-import com.alibaba.excel.support.cglib.core.DebuggingClassWriter;
-import com.alibaba.excel.util.BeanMapUtils;
+//import com.alibaba.excel.support.cglib.beans.BeanMap;
+//import com.alibaba.excel.support.cglib.core.DebuggingClassWriter;
+//import com.alibaba.excel.util.BeanMapUtils;
 import com.alibaba.fastjson2.JSON;
 
 import org.junit.jupiter.api.Test;
@@ -29,23 +29,23 @@ public class Xls03Test {
         }
     }
 
-    @Test
-    public void test2() {
-        System.getProperties().put("sun.misc.ProxyGenerator.saveGeneratedFiles", "true");
-        System.setProperty(DebuggingClassWriter.DEBUG_LOCATION_PROPERTY,
-            "/Users/zhuangjiaju/IdeaProjects/easyexcel/target");
-
-        CamlData camlData = new CamlData();
-        //camlData.setTest("test2");
-        //camlData.setAEst("test3");
-        //camlData.setTEST("test4");
-
-        BeanMap beanMap = BeanMapUtils.create(camlData);
-
-        LOGGER.info("test:{}", beanMap.get("test"));
-        LOGGER.info("test:{}", beanMap.get("Test"));
-        LOGGER.info("test:{}", beanMap.get("TEst"));
-        LOGGER.info("test:{}", beanMap.get("TEST"));
-
-    }
+//    @Test
+//    public void test2() {
+//        System.getProperties().put("sun.misc.ProxyGenerator.saveGeneratedFiles", "true");
+//        System.setProperty(DebuggingClassWriter.DEBUG_LOCATION_PROPERTY,
+//            "/Users/zhuangjiaju/IdeaProjects/easyexcel/target");
+//
+//        CamlData camlData = new CamlData();
+//        //camlData.setTest("test2");
+//        //camlData.setAEst("test3");
+//        //camlData.setTEST("test4");
+//
+//        BeanMap beanMap = BeanMapUtils.create(camlData);
+//
+//        LOGGER.info("test:{}", beanMap.get("test"));
+//        LOGGER.info("test:{}", beanMap.get("Test"));
+//        LOGGER.info("test:{}", beanMap.get("TEst"));
+//        LOGGER.info("test:{}", beanMap.get("TEST"));
+//
+//    }
 }

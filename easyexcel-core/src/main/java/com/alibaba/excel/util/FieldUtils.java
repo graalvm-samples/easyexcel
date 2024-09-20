@@ -5,7 +5,7 @@ import java.lang.reflect.Modifier;
 import java.util.Map;
 
 import com.alibaba.excel.metadata.NullObject;
-import com.alibaba.excel.support.cglib.beans.BeanMap;
+//import com.alibaba.excel.support.cglib.beans.BeanMap;
 
 /**
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -29,9 +29,9 @@ public class FieldUtils {
 
     private static final int START_RESOLVE_FIELD_LENGTH = 2;
 
-    public static Class<?> getFieldClass(Map dataMap, String fieldName, Object value) {
-        if (dataMap instanceof BeanMap) {
-            Class<?> fieldClass = ((BeanMap)dataMap).getPropertyType(fieldName);
+    public static Class<?> getFieldClass(Object dataMap, String fieldName, Object value) {
+        if (dataMap instanceof BeanReflectionHelper) {
+            Class<?> fieldClass = ((BeanReflectionHelper)dataMap).getPropertyType(fieldName);
             if (fieldClass != null) {
                 return fieldClass;
             }

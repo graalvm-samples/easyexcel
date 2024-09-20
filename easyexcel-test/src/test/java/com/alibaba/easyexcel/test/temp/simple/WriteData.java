@@ -2,6 +2,7 @@ package com.alibaba.easyexcel.test.temp.simple;
 
 import java.util.Date;
 
+import com.fushun.framework.json.config.JsonGraalVMNativeBean;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,7 +15,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @EqualsAndHashCode
-public class WriteData {
+public class WriteData implements JsonGraalVMNativeBean {
     //    @ContentStyle(locked = true)
     private Date dd;
     //    @ContentStyle(locked = false)
